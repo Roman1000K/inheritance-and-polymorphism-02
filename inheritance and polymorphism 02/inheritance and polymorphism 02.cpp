@@ -2,13 +2,13 @@
 #include <Windows.h>
 
 class Triangle {
-private:
+protected:
     int a, b, c;
     int A, B, C;
     std::string name;
 
 public:
-    Triangle(int a, int b, int c, int A, int B, int C, std::string name) : a(a), b(b), c(c), A(A), B(B), C(C), name(name) {}
+    Triangle() :a(10), b(20), c(30), A(50), B(60), C(70), name("Треугольник") {}
 
     std::string get_name() { return name; }
     int get_a() { return a; }
@@ -21,19 +21,28 @@ public:
 
 class RightTriangle : public Triangle {
 public:
-    RightTriangle(int a, int b, int c, int A, int B) : Triangle(a, b, c, A, B, 90, "Прямоугольный треугольник:") {}
+    RightTriangle() {
+        C = 90;
+        name = "Прямоугольный треугольник:";
+    }
 };
 
 class IsoscelesTriangle : public Triangle {
 public:
-    IsoscelesTriangle(int a, int c, int A, int B) : Triangle(a, c, a, A, B, A, "Равнобедренный треугольник:") {}
+    IsoscelesTriangle() {
+        c = 10; C = 50;
+        name = "Равнобедренный треугольник:";
+    }
 };
 
 class EquilateralTriangle : public Triangle {
 public:
-    EquilateralTriangle(int a) : Triangle(a, a, a, 60, 60, 60, "Равносторонний треугольник:") {}
+    EquilateralTriangle() {
+        a = 30; b = 30;
+        A = 60; B = 60; C = 60;
+        name = "Равносторонний треугольник:";
+    }
 };
-
 
 class Quadrilateral {
 protected:
@@ -41,7 +50,7 @@ protected:
     int A, B, C, D;
     std::string name;
 public:
-    Quadrilateral(int a, int b, int c, int d, int A, int B, int C, int D, std::string name) : a(a), b(b), c(c), d(d), A(A), B(B), C(C), D(D), name(name) {}
+    Quadrilateral() : a(10), b(20), c(30), d(40), A(50), B(60), C(70), D(80), name("Четырехугольник:") {}
 
     std::string get_name() { return name; }
     int get_a() { return a; }
@@ -57,23 +66,36 @@ public:
 
 class Parallelogram : public Quadrilateral {
 public:
-    Parallelogram(int a, int b, int A, int B, std::string name) : Quadrilateral(a, b, a, b, A, B, A, B, name) {}
+    Parallelogram() {
+        a = 20; b = 30; c = 20; d = 30;
+        A = 30; B = 40; C = 30; D = 40;
+        name = "Параллелограмм:";
+    }
 };
 
 class Rectangl : public Quadrilateral {
 public:
-    Rectangl(int a, int b, std::string name) : Quadrilateral(a, b, a, b, 90, 90, 90, 90, name) {}
+    Rectangl() {
+        a = 10; c = 10; d = 20;
+        A = 90; B = 90; C = 90; D = 90;
+        name = "Прямоугольник:";
+    }
 };
 
 class Square : public Rectangl {
 public:
-    Square(int a) : Rectangl(a, a, "Квадрат") {}
+    Square() {
+        a = 20; c = 20;
+        name = "Квадрат:";
+    }
 };
-
 
 class Rhomb : public Parallelogram {
 public:
-    Rhomb(int a, int A, int B) : Parallelogram(a, a, A, B, "Ромб") {}
+    Rhomb() {
+        a = 30; b = 30; c = 30; d = 30;
+        name = "Ромб:";
+    }
 };
 
 void print_info(Triangle* shape) {
@@ -92,55 +114,52 @@ void print_info1(Quadrilateral* shape) {
     std::cout << "Углы: A=" << shape->get_A() << " B=" << shape->get_B() << " C=" << shape->get_C() << " D=" << shape->get_D() << std::endl;
 }
 
-
 int main() {
-
 
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    Triangle triangle(10, 20, 30, 50, 60, 70, "Треугольник: ");
+    Triangle triangle;
     print_info(&triangle);
 
     std::cout << std::endl;
 
-    RightTriangle rightTriangle(10, 20, 30, 50, 60);
+    RightTriangle rightTriangle;
     print_info(&rightTriangle);
 
     std::cout << std::endl;
 
-    IsoscelesTriangle isoscelesTriangle(10, 20, 50, 60);
+    IsoscelesTriangle isoscelesTriangle;
     print_info(&isoscelesTriangle);
 
     std::cout << std::endl;
 
-    EquilateralTriangle equilateralTriangle(10);
+    EquilateralTriangle equilateralTriangle;
     print_info(&equilateralTriangle);
 
     std::cout << std::endl;
 
-    Quadrilateral quadrilateral(10, 20, 30, 40, 50, 60, 70, 80, "Четырехугольник: ");
+    Quadrilateral quadrilateral;
     print_info1(&quadrilateral);
 
     std::cout << std::endl;
 
-
-    Rectangl rectangl(10, 20, "Прямоугольник: ");
+    Rectangl rectangl;
     print_info1(&rectangl);
 
     std::cout << std::endl;
 
-    Parallelogram parallelogram(20, 30, 30, 40, "Параллелограмм:");
+    Parallelogram parallelogram;
     print_info1(&parallelogram);
 
     std::cout << std::endl;
 
-    Square squre(20);
+    Square squre;
     print_info1(&squre);
 
     std::cout << std::endl;
 
-    Rhomb rhomb(30, 40, 30);
+    Rhomb rhomb;
     print_info1(&rhomb);
 
     return 0;
